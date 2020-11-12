@@ -1,9 +1,9 @@
 
 // Initialize chart
-let choroplethMap = new ChoroplethMap({ parentElement: '#map' });
+//let choroplethMap = new ChoroplethMap({ parentElement: '#map' });
 
 // Load data
-Promise.all([
+/*Promise.all([
     d3.json('data/canada_provinces.topo.json'),
     d3.csv('data/canada_historical_population.csv')
 ]).then(files => {
@@ -30,11 +30,11 @@ $('#year-slider').on('input', function() {
 
     choroplethMap.selectedYear = +year;
     choroplethMap.update();
-});
+});*/
 
 //reference 1: https://bl.ocks.org/officeofjane/47d2b0bfeecfcb41d2212d06d095c763
 //reference 2: https://www.w3schools.com/jsref/met_win_setinterval.asp
-let Timer;
+/*let Timer;
 $('#play-button').on('click', function() {
     clearInterval(Timer);
 
@@ -59,4 +59,4 @@ $('#play-button').on('click', function() {
         $('#play-button').text('Play');
         $('#play-button').css('background-color', '#a0bc3d');
     }
-});
+});*/

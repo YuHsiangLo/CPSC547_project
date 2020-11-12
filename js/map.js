@@ -4,7 +4,8 @@ class Map {
         this.config = {
             parentElement: _config.parentElement,
             height: _config.height || 300,
-            margin: {top:10, botton: 30, right: 10, left: 30}
+            margin: {top:10, botton: 30, right: 10, left: 30
+            }
         };
 
         this.initVis();
