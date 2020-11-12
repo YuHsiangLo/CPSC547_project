@@ -20,11 +20,11 @@ var projection = d3.geoMercator()
 
 var path = d3.geoPath()
     .projection(projection)
-
-d3.json('data/geos.json')
+    d3.json('data/geos.json')
     .then(data => {
         var regions = topojson.feature(data, data.objects.geos).features;
-        console.log(regions);
+        //console.log(regions);
+        //console.log(data);
 
         svg.selectAll(".geometry")
             .data(regions)
@@ -32,19 +32,28 @@ d3.json('data/geos.json')
             .append('path')
             .attr("class", "DA")
             .attr('d', path);
+    });
+
+
+d3.json('data/geosCSD.json')
+    .then(data => {
+        var municipalities = topojson.feature(data, data.objects.geosCSD).features;
+        //console.log(regions);
+        console.log(municipalities);
+
+        svg.selectAll(".geometry")
+            .data(municipalities)
+            .enter()
+            .append('path')
+            .attr("class", "Municipalities")
+            .attr('d', path);
         /*var regions = topojson.feature(data, data.objects.geos);
         svg.append('path')
             .datum(regions)
             .attr('d', path);*/
     });
 
+
+
 loadingText.remove();
 
-/*d3.json('data/geos.json', function(error, dc){
-    if(error) throw error;
-
-    console.log(data);
-
-    
-
-});*/
