@@ -1,4 +1,4 @@
-var width = window.innerWidth,
+var width = window.innerWidth - (window.innerWidth/3),
     height = window.innerHeight;
 
 var loadingText = d3.select("body").append("div")
@@ -15,7 +15,7 @@ tau = 2 * pi;
 
 var projection = d3.geoMercator()
     .scale((1 << 18) / tau)
-    .translate([width/6, height/2])
+    .translate([width/3, height/2])
     .center([-123.17, 49.26]);
 
 var path = d3.geoPath()
