@@ -1,0 +1,497 @@
+{
+  "name": "Mother tongue and home language classification",
+  "children": [
+    {
+      "name": "Official languages",
+      "children": [
+        {
+          "name": "English"
+        },
+        {
+          "name": "French"
+        }
+      ]
+    },
+    {
+      "name": "Non-official languages",
+      "children": [
+        {
+          "name": "Aboriginal languages",
+          "children": [
+            {
+              "name": "Algonquian languages",
+              "children": [
+                {
+                  "name": "Blackfoot"
+                },
+                {
+                  "name": "Cree-Montagnais languages",
+                  "children": [
+                    {"name": "Atikamekw"},
+                    {"name": "Montagnais"},
+                    {"name": "Moose Cree"},
+                    {"name": "Naskapi"},
+                    {"name": "Northern East Cree"},
+                    {"name": "Plains Cree"},
+                    {"name": "Southern East Cree"},
+                    {"name": "Swampy Cree"},
+                    {"name": "Woods Cree"},
+                    {"name": "Cree, n.o.s."}
+                  ]
+                },
+                {
+                  "name": "Eastern Algonquian languages",
+                  "children": [
+                    {"name": "Madecite"},
+                    {"name": "Mi'kmaq"}
+                  ]
+                },
+                {
+                  "name": "Ojibway-Potawatomi languages",
+                  "children": [
+                    {"name": "Algonquin"},
+                    {"name": "Ojibway"},
+                    {"name": "Oji-Cree"},
+                    {"name": "Ottawa"}
+                  ]
+                },
+                {
+                  "name": "Algonquian languages, n.i.e."
+                }
+              ]
+            },
+            {
+              "name": "Athabaskan languages",
+              "children": [
+                {
+                  "name": "Northern Athabaskan languages",
+                  "children": [
+                    {"name": "Babine"},
+                    {"name": "Beaver"},
+                    {"name": "Carrier"},
+                    {"name": "Chilcotin"},
+                    {"name": "Dene"},
+                    {"name": "Dogrib"},
+                    {"name": "Gwich'in"},
+                    {"name": "Sarsi"},
+                    {"name": "Sekani"},
+                    {
+                      "name": "Slavey-Hare languages",
+                      "children": [
+                        {"name": "North Slavey"},
+                        {"name": "South Slavey"},
+                        {"name": "Slavey, n.o.s."}
+                      ]
+                    },
+                    {
+                      "name": "Tahltan languages",
+                      "children": [
+                        {"name": "Kaska"},
+                        {"name": "Tahltan"}
+                      ]
+                    },
+                    {
+                      "name": "Tutchone languages",
+                      "children": [
+                        {"name": "Northern Tutchone"},
+                        {"name": "Southern Tutchone"}
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Athabaskan languages, n.i.e."
+                }
+              ]
+            },
+            {
+              "name": "Haida"
+            },
+            {
+              "name": "Inuit languages",
+              "children": [
+                {"name": "Inuinnaqtun"},
+                {"name": "Inuktitut"},
+                {"name": "Inuit languages, n.i.e."}
+              ]
+            },
+            {
+              "name": "Iroquoian languages",
+              "children": [
+                {"name": "Cayuga"},
+                {"name": "Mohawk"},
+                {"name": "Oneida"},
+                {"name": "Iroquoian languages, n.i.e."}
+              ]
+            },
+            {
+              "name": "Kutenai"
+            },
+            {
+              "name": "Michif"
+            },
+            {
+              "name": "Salish languages",
+              "children": [
+                {"name": "Comox"},
+                {"name": "Halkomelem"},
+                {"name": "Lillooet"},
+                {"name": "Okanagan"},
+                {"name": "Shuswap"},
+                {"name": "Squamish"},
+                {"name": "Straits"},
+                {"name": "Thompson"},
+                {"name": "Salish languages, n.i.e."}
+              ]
+            },
+            {
+              "name": "Siouan languages",
+              "children": [
+                {"name": "Dakota"},
+                {"name": "Stoney"},
+                {"name": "Siouan languages, n.i.e."}
+              ]
+            },
+            {
+              "name": "Tlingit"
+            },
+            {
+              "name": "Tsimshian languages",
+              "children": [
+                {"name": "Gitxsan"},
+                {"name": "Nisga'a"},
+                {"name": "Tsimshian"}
+              ]
+            },
+            {
+              "name": "Wakashan languages",
+              "children": [
+                {"name": "Haisla"},
+                {"name": "Heiltsuk"},
+                {"name": "Kwakiutl"},
+                {"name": "Nuu-chah-nulth"},
+                {"name": "Wakashan languages, n.i.e."}
+              ]
+            },
+            {
+              "name": "Aboriginal languages, n.o.s."
+            }
+          ]
+        },
+        {
+          "name": "Non-aboriginal languages",
+          "children": [
+            {
+              "name": "Afro-Asiatic languages",
+              "children": [
+                {
+                  "name": "Berber languages",
+                  "children": [
+                    {"name":  "Kabyle"},
+                    {"name":  "Berber languages, n.i.e."}
+                  ]
+                },
+                {
+                  "name": "Cushitic languages",
+                  "children": [
+                    {"name":  "Bilen"},
+                    {"name":  "Oromo"},
+                    {"name":  "Somali"},
+                    {"name":  "Cushitic languages, n.i.e."}
+                  ]
+                },
+                {
+                  "name": "Semitic languages",
+                  "children": [
+                    {"name":  "Amharic"},
+                    {"name":  "Arabic"},
+                    {"name":  "Assyrian Neo-Aramaic"},
+                    {"name":  "Chaldean Neo-Aramaic"},
+                    {"name":  "Harari"},
+                    {"name":  "Hebrew"},
+                    {"name":  "Maltese"},
+                    {"name":  "Tigrigna"},
+                    {"name":  "Semitic languages, n.i.e."}
+                  ]
+                },
+                {
+                  "name": "Afro-Asiatic languages, n.i.e."
+                }
+              ]
+            },
+            {
+              "name": "Austro-Asiatic languages",
+              "children": [
+                {"name": "Khmer"},
+                {"name": "Vietnamese"},
+                {"name": "Austro-Asiatic languages, n.i.e."}
+              ]
+            },
+            {
+              "name": "Austronesian languages",
+              "children": [
+                {"name": "Bikol"},
+                {"name": "Cebuano"},
+                {"name": "Fijian"},
+                {"name": "Hiligaynon"},
+                {"name": "Ilocano"},
+                {"name": "Malagasy"},
+                {"name": "Malay"},
+                {"name": "Pampangan"},
+                {"name": "Pangasinan"},
+                {"name": "Tagalog"},
+                {"name": "Waray-Waray"},
+                {"name": "Austronesian languages, n.i.e."}
+              ]
+            },
+            {
+              "name": "Creole languages",
+              "children": [
+                {"name": "Haitian Creole"},
+                {"name": "Creole, n.o.s."},
+                {"name": "Creoloe languages, n.i.e."}
+              ]
+            },
+            {
+              "name": "Dravidian languages",
+              "children": [
+                {"name": "Kannada"},
+                {"name": "Malayalam"},
+                {"name": "Tamil"},
+                {"name": "Telugu"},
+                {"name": "Dravidian languages, n.i.e."}
+              ]
+            },
+            {
+              "name": "Hmong-Mien languages"
+            },
+            {
+              "name": "Indo-European languages",
+              "children": [
+                {
+                  "name": "Albanian"
+                },
+                {
+                  "name": "Armenian"
+                },
+                {
+                  "name": "Balto-Slavic languages",
+                  "children": [
+                    {
+                      "name": "Baltic languages",
+                      "children": [
+                        {"name": "Latvian"},
+                        {"name": "Lithuanian"}
+                      ]
+                    },
+                    {
+                      "name": "Slavic languages",
+                      "children": [
+                        {"name": "Belarusian"},
+                        {"name": "Bosnian"},
+                        {"name": "Bulgarian"},
+                        {"name": "Croatian"},
+                        {"name": "Czech"},
+                        {"name": "Macedonian"},
+                        {"name": "Polish"},
+                        {"name": "Russian"},
+                        {"name": "Serbian"},
+                        {"name": "Serbo-Croatian"},
+                        {"name": "Slovak"},
+                        {"name": "Slovene"},
+                        {"name": "Ukrainian"},
+                        {"name": "Slavic languages, n.i.e."}
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Celtic languages",
+                  "children": [
+                    {"name": "Scottish Gaelic"},
+                    {"name": "Welsh"},
+                    {"name": "Celtic languages, n.i.e."}
+                  ]
+                },
+                {
+                  "name": "Germanic languages",
+                  "children": [
+                    {"name": "Afrikaans"},
+                    {"name": "Danish"},
+                    {"name": "Dutch"},
+                    {"name": "Frisian"},
+                    {"name": "German"},
+                    {"name": "Icelandic"},
+                    {"name": "Norwegian"},
+                    {"name": "Swedish"},
+                    {"name": "Vlaams"},
+                    {"name": "Yiddish"},
+                    {"name": "Germanic languages, n.i.e."}
+                  ]
+                },
+                {
+                  "name": "Greek"
+                },
+                {
+                  "name": "Indo-Iranian languages",
+                  "children": [
+                    {
+                      "name": "Indo-Aryan languages",
+                      "children": [
+                        {"name": "Bengali"},
+                        {"name": "Gujarati"},
+                        {"name": "Hindi"},
+                        {"name": "Kashmiri"},
+                        {"name": "Konkani"},
+                        {"name": "Marathi"},
+                        {"name": "Nepali"},
+                        {"name": "Oriya"},
+                        {"name": "Punjabi"},
+                        {"name": "Sindhi"},
+                        {"name": "Sinhala"},
+                        {"name": "Urdu"}
+                      ]
+                    },
+                    {
+                      "name": "Iranian languages",
+                      "children": [
+                        {"name": "Kurdish"},
+                        {"name": "Pashto"},
+                        {"name": "Persian"}
+                      ]
+                    },
+                    {
+                      "name": "Indo-Iranian languages, n.i.e."
+                    }
+                  ]
+                },
+                {
+                  "name": "Romance languages",
+                  "children": [
+                    {"name": "Catalan"},
+                    {"name": "Italian"},
+                    {"name": "Portuguese"},
+                    {"name": "Romanian"},
+                    {"name": "Spanish"},
+                    {"name": "Romance languages, n.i.e."}
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Japanese"
+            },
+            {
+              "name": "Kartvelian languages",
+              "children": [
+                {"name": "Georgian"}
+              ]
+            },
+            {
+              "name": "Korean"
+            },
+            {
+              "name": "Mongolic languages",
+              "children": [
+                {"name": "Mongolian"}
+              ]
+            },
+            {
+              "name": "Niger-Congo languages",
+              "children": [
+                {"name": "Akan"},
+                {"name": "Bamanankan"},
+                {"name": "Edo"},
+                {"name": "Ewe"},
+                {"name": "Fulah"},
+                {"name": "Ga"},
+                {"name": "Ganda"},
+                {"name": "Igbo"},
+                {"name": "Lingala"},
+                {"name": "Rundi"},
+                {"name": "Kinyarwanda"},
+                {"name": "Shona"},
+                {"name": "Swahili"},
+                {"name": "Wolof"},
+                {"name": "Yoruba"},
+                {"name": "Niger-Congo languages, n.i.e."}
+              ]
+            },
+            {
+              "name": "Nilo-Saharan languages",
+              "children": [
+                {"name": "Dinka"},
+                {"name": "Nilo-Saharan languages, n.i.e."}
+              ]
+            },
+            {
+              "name": "Sign languages",
+              "children": [
+                {"name": "American sign language"},
+                {"name": "Quebec sign language"},
+                {"name": "Sign languages, n.i.e."}
+              ]
+            },
+            {
+              "name": "Sino-Tibetan languages",
+              "children": [
+                {
+                  "name": "Chinese languages",
+                  "children": [
+                    {"name": "Cantonese"},
+                    {"name": "Hakka"},
+                    {"name": "Mandarin"},
+                    {"name": "Min Dong"},
+                    {"name": "Min Nan"},
+                    {"name": "Wu"},
+                    {"name": "Chinese, n.o.s."},
+                    {"name": "Chinese, n.i.e."}
+                  ]
+                },
+                {
+                  "name": "Tibeto-Burman languages",
+                  "children": [
+                    {"name": "Burmese"},
+                    {"name": "Karenic languages"},
+                    {"name": "Tibetan"},
+                    {"name": "Tibeto-Burman languages, n.i.e."}
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Tai-Kadai languages",
+              "children": [
+                {"name": "Lao"},
+                {"name": "Thai"},
+                {"name": "Kai-Kadai languages, n.i.e."}
+              ]
+            },
+            {
+              "name": "Turkic languages",
+              "children": [
+                {"name": "Azerbaijani"},
+                {"name": "Turkish"},
+                {"name": "Uyghur"},
+                {"name": "Uzbek"},
+                {"name": "Turkish languages, n.i.e."}
+              ]
+            },
+            {
+              "name": "Uralic languages",
+              "children": [
+                {"name": "Estonian"},
+                {"name": "Finnish"},
+                {"name": "Hungarian"},
+                {"name": "Uralic languages, n.i.e."}
+              ]
+            },
+            {
+              "name": "Other languages, n.i.e."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
