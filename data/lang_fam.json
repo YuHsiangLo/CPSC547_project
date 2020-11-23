@@ -1,0 +1,485 @@
+{
+  "name": "Classification",
+  "children": [
+    {
+      "name": "Official",
+      "children": [
+        {
+          "name": "English"
+        },
+        {
+          "name": "French"
+        }
+      ]
+    },
+    {
+      "name": "Non-official",
+      "children": [
+        {
+          "name": "Aboriginal",
+          "children": [
+            {
+              "name": "Algonquian",
+              "children": [
+                {
+                  "name": "Blackfoot"
+                },
+                {
+                  "name": "Cree-Montagnais",
+                  "children": [
+                    {"name": "Atikamekw"},
+                    {"name": "Montagnais"},
+                    {"name": "Moose Cree"},
+                    {"name": "Naskapi"},
+                    {"name": "Northern East Cree"},
+                    {"name": "Plains Cree"},
+                    {"name": "Southern East Cree"},
+                    {"name": "Swampy Cree"},
+                    {"name": "Woods Cree"},
+                    {"name": "Cree, n.o.s."}
+                  ]
+                },
+                {
+                  "name": "Eastern Algonquian",
+                  "children": [
+                    {"name": "Malecite"},
+                    {"name": "Mi'kmaq"}
+                  ]
+                },
+                {
+                  "name": "Ojibway-Potawatomi",
+                  "children": [
+                    {"name": "Algonquin"},
+                    {"name": "Ojibway"},
+                    {"name": "Oji-Cree"},
+                    {"name": "Ottawa"}
+                  ]
+                },
+                {
+                  "name": "Algonquian, n.i.e."
+                }
+              ]
+            },
+            {
+              "name": "Athabaskan",
+              "children": [
+                {
+                  "name": "Northern Athabaskan",
+                  "children": [
+                    {"name": "Babine"},
+                    {"name": "Beaver"},
+                    {"name": "Carrier"},
+                    {"name": "Chilcotin"},
+                    {"name": "Dene"},
+                    {"name": "Dogrib"},
+                    {"name": "Gwich'in"},
+                    {"name": "Sarsi"},
+                    {"name": "Sekani"},
+                    {
+                      "name": "Slavey-Hare",
+                      "children": [
+                        {"name": "North Slavey"},
+                        {"name": "South Slavey"},
+                        {"name": "Slavey, n.o.s."}
+                      ]
+                    },
+                    {
+                      "name": "Tahltan",
+                      "children": [
+                        {"name": "Kaska"},
+                        {"name": "Tahltan"}
+                      ]
+                    },
+                    {
+                      "name": "Tutchone",
+                      "children": [
+                        {"name": "Northern Tutchone"},
+                        {"name": "Southern Tutchone"}
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Athabaskan, n.i.e."
+                }
+              ]
+            },
+            {"name": "Haida"},
+            {
+              "name": "Inuit",
+              "children": [
+                {"name": "Inuinnaqtun"},
+                {"name": "Inuktitut"},
+                {"name": "Inuit, n.i.e."}
+              ]
+            },
+            {
+              "name": "Iroquoian",
+              "children": [
+                {"name": "Cayuga"},
+                {"name": "Mohawk"},
+                {"name": "Oneida"},
+                {"name": "Iroquoian, n.i.e."}
+              ]
+            },
+            {
+              "name": "Kutenai"
+            },
+            {
+              "name": "Michif"
+            },
+            {
+              "name": "Salish",
+              "children": [
+                {"name": "Comox"},
+                {"name": "Halkomelem"},
+                {"name": "Lillooet"},
+                {"name": "Okanagan"},
+                {"name": "Shuswap"},
+                {"name": "Squamish"},
+                {"name": "Straits"},
+                {"name": "Thompson"},
+                {"name": "Salish, n.i.e."}
+              ]
+            },
+            {
+              "name": "Siouan",
+              "children": [
+                {"name": "Dakota"},
+                {"name": "Stoney"},
+                {"name": "Siouan, n.i.e."}
+              ]
+            },
+            {"name": "Tlingit"},
+            {
+              "name": "Tsimshian",
+              "children": [
+                {"name": "Gitxsan"},
+                {"name": "Nisga'a"},
+                {"name": "Tsimshian"}
+              ]
+            },
+            {
+              "name": "Wakashan",
+              "children": [
+                {"name": "Haisla"},
+                {"name": "Heiltsuk"},
+                {"name": "Kwakiutl"},
+                {"name": "Nuu-chah-nulth"},
+                {"name": "Wakashan, n.i.e."}
+              ]
+            },
+            {
+              "name": "Aboriginal, n.o.s."
+            }
+          ]
+        },
+        {
+          "name": "Non-aboriginal",
+          "children": [
+            {
+              "name": "Afro-Asiatic",
+              "children": [
+                {
+                  "name": "Berber",
+                  "children": [
+                    {"name":  "Kabyle"},
+                    {"name":  "Berber, n.i.e."}
+                  ]
+                },
+                {
+                  "name": "Cushitic",
+                  "children": [
+                    {"name":  "Bilen"},
+                    {"name":  "Oromo"},
+                    {"name":  "Somali"},
+                    {"name":  "Cushitic, n.i.e."}
+                  ]
+                },
+                {
+                  "name": "Semitic",
+                  "children": [
+                    {"name":  "Amharic"},
+                    {"name":  "Arabic"},
+                    {"name":  "Assyrian Neo-Aramaic"},
+                    {"name":  "Chaldean Neo-Aramaic"},
+                    {"name":  "Harari"},
+                    {"name":  "Hebrew"},
+                    {"name":  "Maltese"},
+                    {"name":  "Tigrigna"},
+                    {"name":  "Semitic, n.i.e."}
+                  ]
+                },
+                {
+                  "name": "Afro-Asiatic, n.i.e."
+                }
+              ]
+            },
+            {
+              "name": "Austro-Asiatic",
+              "children": [
+                {"name": "Khmer"},
+                {"name": "Vietnamese"},
+                {"name": "Austro-Asiatic, n.i.e."}
+              ]
+            },
+            {
+              "name": "Austronesian",
+              "children": [
+                {"name": "Bikol"},
+                {"name": "Cebuano"},
+                {"name": "Fijian"},
+                {"name": "Hiligaynon"},
+                {"name": "Ilocano"},
+                {"name": "Malagasy"},
+                {"name": "Malay"},
+                {"name": "Pampangan"},
+                {"name": "Pangasinan"},
+                {"name": "Tagalog"},
+                {"name": "Waray-Waray"},
+                {"name": "Austronesian, n.i.e."}
+              ]
+            },
+            {
+              "name": "Creole",
+              "children": [
+                {"name": "Haitian Creole"},
+                {"name": "Creole, n.o.s."},
+                {"name": "Creole, n.i.e."}
+              ]
+            },
+            {
+              "name": "Dravidian",
+              "children": [
+                {"name": "Kannada"},
+                {"name": "Malayalam"},
+                {"name": "Tamil"},
+                {"name": "Telugu"},
+                {"name": "Dravidian, n.i.e."}
+              ]
+            },
+            {
+              "name": "Hmong-Mien"
+            },
+            {
+              "name": "Indo-European",
+              "children": [
+                {"name": "Albanian"},
+                {"name": "Armenian"},
+                {
+                  "name": "Balto-Slavic",
+                  "children": [
+                    {
+                      "name": "Baltic",
+                      "children": [
+                        {"name": "Latvian"},
+                        {"name": "Lithuanian"}
+                      ]
+                    },
+                    {
+                      "name": "Slavic",
+                      "children": [
+                        {"name": "Belarusian"},
+                        {"name": "Bosnian"},
+                        {"name": "Bulgarian"},
+                        {"name": "Croatian"},
+                        {"name": "Czech"},
+                        {"name": "Macedonian"},
+                        {"name": "Polish"},
+                        {"name": "Russian"},
+                        {"name": "Serbian"},
+                        {"name": "Serbo-Croatian"},
+                        {"name": "Slovak"},
+                        {"name": "Slovene"},
+                        {"name": "Ukrainian"},
+                        {"name": "Slavic, n.i.e."}
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Celtic",
+                  "children": [
+                    {"name": "Scottish Gaelic"},
+                    {"name": "Welsh"},
+                    {"name": "Celtic, n.i.e."}
+                  ]
+                },
+                {
+                  "name": "Germanic",
+                  "children": [
+                    {"name": "Afrikaans"},
+                    {"name": "Danish"},
+                    {"name": "Dutch"},
+                    {"name": "Frisian"},
+                    {"name": "German"},
+                    {"name": "Icelandic"},
+                    {"name": "Norwegian"},
+                    {"name": "Swedish"},
+                    {"name": "Vlaams"},
+                    {"name": "Yiddish"},
+                    {"name": "Germanic, n.i.e."}
+                  ]
+                },
+                {"name": "Greek"},
+                {
+                  "name": "Indo-Iranian",
+                  "children": [
+                    {
+                      "name": "Indo-Aryan",
+                      "children": [
+                        {"name": "Bengali"},
+                        {"name": "Gujarati"},
+                        {"name": "Hindi"},
+                        {"name": "Kashmiri"},
+                        {"name": "Konkani"},
+                        {"name": "Marathi"},
+                        {"name": "Nepali"},
+                        {"name": "Oriya"},
+                        {"name": "Punjabi"},
+                        {"name": "Sindhi"},
+                        {"name": "Sinhala"},
+                        {"name": "Urdu"}
+                      ]
+                    },
+                    {
+                      "name": "Iranian",
+                      "children": [
+                        {"name": "Kurdish"},
+                        {"name": "Pashto"},
+                        {"name": "Persian"}
+                      ]
+                    },
+                    {
+                      "name": "Indo-Iranian, n.i.e."
+                    }
+                  ]
+                },
+                {
+                  "name": "Romance",
+                  "children": [
+                    {"name": "Catalan"},
+                    {"name": "Italian"},
+                    {"name": "Portuguese"},
+                    {"name": "Romanian"},
+                    {"name": "Spanish"},
+                    {"name": "Romance, n.i.e."}
+                  ]
+                }
+              ]
+            },
+            {"name": "Japanese"},
+            {
+              "name": "Kartvelian",
+              "children": [
+                {"name": "Georgian"}
+              ]
+            },
+            {
+              "name": "Korean"
+            },
+            {
+              "name": "Mongolic",
+              "children": [
+                {"name": "Mongolian"}
+              ]
+            },
+            {
+              "name": "Niger-Congo",
+              "children": [
+                {"name": "Akan"},
+                {"name": "Bamanankan"},
+                {"name": "Edo"},
+                {"name": "Ewe"},
+                {"name": "Fulah"},
+                {"name": "Ga"},
+                {"name": "Ganda"},
+                {"name": "Igbo"},
+                {"name": "Lingala"},
+                {"name": "Rundi"},
+                {"name": "Kinyarwanda"},
+                {"name": "Shona"},
+                {"name": "Swahili"},
+                {"name": "Wolof"},
+                {"name": "Yoruba"},
+                {"name": "Niger-Congo, n.i.e."}
+              ]
+            },
+            {
+              "name": "Nilo-Saharan",
+              "children": [
+                {"name": "Dinka"},
+                {"name": "Nilo-Saharan, n.i.e."}
+              ]
+            },
+            {
+              "name": "Sign languages",
+              "children": [
+                {"name": "American Sign Language"},
+                {"name": "Quebec Sign Language"},
+                {"name": "Sign languages, n.i.e."}
+              ]
+            },
+            {
+              "name": "Sino-Tibetan",
+              "children": [
+                {
+                  "name": "Chinese",
+                  "children": [
+                    {"name": "Cantonese"},
+                    {"name": "Hakka"},
+                    {"name": "Mandarin"},
+                    {"name": "Min Dong"},
+                    {"name": "Min Nan"},
+                    {"name": "Wu"},
+                    {"name": "Chinese, n.o.s."},
+                    {"name": "Chinese, n.i.e."}
+                  ]
+                },
+                {
+                  "name": "Tibeto-Burman",
+                  "children": [
+                    {"name": "Burmese"},
+                    {"name": "Karenic"},
+                    {"name": "Tibetan"},
+                    {"name": "Tibeto-Burman, n.i.e."}
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Tai-Kadai",
+              "children": [
+                {"name": "Lao"},
+                {"name": "Thai"},
+                {"name": "Tai-Kadai, n.i.e."}
+              ]
+            },
+            {
+              "name": "Turkic",
+              "children": [
+                {"name": "Azerbaijani"},
+                {"name": "Turkish"},
+                {"name": "Uyghur"},
+                {"name": "Uzbek"},
+                {"name": "Turkic, n.i.e."}
+              ]
+            },
+            {
+              "name": "Uralic",
+              "children": [
+                {"name": "Estonian"},
+                {"name": "Finnish"},
+                {"name": "Hungarian"},
+                {"name": "Uralic, n.i.e."}
+              ]
+            },
+            {
+              "name": "Other, n.i.e."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

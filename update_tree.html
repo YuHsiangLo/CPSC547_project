@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script src="https://d3js.org/d3.v6.min.js"></script>
+<script>
+    d3.json('data/lang_fam.json').then(data => {
+        const root = d3.hierarchy(data);
+        console.log(root)
+        root.each(node => {
+            if (!node.children) {
+                node.numSpeakers = 2;
+            }
+        })
+        root.eachAfter(node => {
+            if (node.children) {
+                let num = 0;
+                node.children.forEach(child => {
+                    num += child.numSpeakers;
+                })
+
+                node.numSpeakers = num;
+            }
+        })
+        console.log(root)
+    });
+</script>
+</body>
+</html>

@@ -1,7 +1,13 @@
-.DA {
-    fill: #e3e3e3;
-    stroke: #fff;
-    stroke-width: 0.5;
+#mydiv {
+    position: absolute;
+    cursor: move;
+    opacity: 0.9;
+}
+
+.neighbor {
+    fill-opacity: 0;
+    stroke: black;
+    stroke-width: 1;
 }
 
 .Municipalities {

@@ -10,6 +10,8 @@ var canvas = container.append("canvas")
     .attr("width", width)
     .attr("height", height);
 
+console.log(canvas.node())
+
 var context = canvas.node().getContext("2d");
 
 

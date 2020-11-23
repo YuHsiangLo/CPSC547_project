@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Mapping Immigrant America</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.css' rel='stylesheet' />
+    <link href='https://mapbox.com/base/latest/base.css' rel='stylesheet' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/simplex/bootstrap.min.css">
+
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+        .hand-click {
+            cursor: pointer;
+        }
+
+        .hand-click:hover {
+            color: red;
+        }
+
+        .mapboxgl-ctrl-top-right {
+            margin: 35px 10px 0 0;
+        }
+
+        .legend {
+            background-color: #fff;
+            border-radius: 3px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.10);
+            font: 'Open Sans';
+            font-size: 110%;
+            padding: 10px;
+            opacity: 0.6;
+            position: fixed;
+            top: 67%;
+            right: 0%;
+            z-index: 3;
+            color: #000;
+        }
+        .legend h4 {
+            margin: 0 0 10px;
+            color: #fff;
+        }
+        .legend div span {
+            border-radius: 50%;
+            display: inline-block;
+            height: 10px;
+            margin-right: 5px;
+            width: 10px;
+        }
+
+        .legend:hover {
+            opacity: 1.0;
+        }
+
+        @media screen and (max-height: 650px) {
+            .mobile-hide {display: none;}
+        }
+
+        @media screen and (min-height: 650px) {
+            .mobile-show {display: none;}
+        }
+    </style>
+</head>
+<body>
+
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Mapping Immigrant America</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="http://personal.tcu.edu/kylewalker">Map author: Kyle Walker, Texas Christian University</a></li>
+                <li><a href="https://walker-data.com/tidycensus">Data source: 2014-2018 ACS via the R tidycensus package</a></li>
+                <li><a href="https://github.com/walkerke/mb-immigrants">Source code on GitHub</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<div id='map'></div>
+<div id='legend10' class='legend mobile-hide'>
+    <div id='legend-title'> </div>
+    <div id='mexico' class='hand-click'><span style='background-color: #e41a1c' id='mexico-span'></span>Mexico</div>
+    <div id='cs_amer_caribbean' class='hand-click'><span style='background-color: #377eb8' id='cs_amer_caribbean-span'></span>Latin America/Caribbean</div>
+    <div id='east_se_asia' class='hand-click'><span style='background-color: #4daf4a' id='east_se_asia-span'></span>East/SE Asia</div>
+    <div id='sw_asia_n_africa' class='hand-click'><span style='background-color: #f781bf' id='sw_asia_n_africa-span'></span>SW Asia/N. Africa</div>
+    <div id='south_asia' class='hand-click'><span style='background-color: #00ffff' id='south_asia-span'></span>South Asia</div>
+    <div id='sub_saharan_africa' class='hand-click'><span style='background-color: #984ea3' id='sub_saharan_africa-span'></span>Sub-Saharan Africa</div>
+    <div id='europe' class='hand-click'><span style='background-color: #ff7f00' id='europe-span'></span>Europe</div>
+    <div id='oceania' class='hand-click'><span style='background-color: #ffff33' id='oceania-span'></span>Oceania</div>
+    <div id='canada' class='hand-click'><span style='background-color: #a65628' id='canada-span'></span>Canada</div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1Ijoia3dhbGtlcnRjdSIsImEiOiJMRk9JSmRvIn0.l1y2jHZ6IARHM_rA1-X45A';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/kwalkertcu/ckagwtnwl0sk21ilsf13673y9', // <-- this is where you put your style ID
+        zoom: 11,
+        center: [-87.630734, 41.864310],
+        maxZoom: 12,
+        minZoom: 5,
+        hash: true
+    });
+
+    // Get current zoom level for dot translation
+
+    map.on('render', function() {
+        var legend_title = document.getElementById('legend-title');
+        legend_title.innerHTML = translate_dots();
+    })
+
+    function translate_dots() {
+        var zm = map.getZoom();
+        if (zm == 12) {
+            return "1 dot = approximately 25 people"
+        } else if (zm < 12 && zm >= 11) {
+            return "1 dot = approximately 50 people"
+        } else if (zm < 11 && zm >= 10) {
+            return "1 dot = approximately 100 people"
+        } else if (zm < 10 && zm >= 9) {
+            return "1 dot = approximately 200 people"
+        } else if (zm < 9 && zm >= 8) {
+            return "1 dot = approximately 400 people"
+        } else if (zm < 8 && zm >= 7) {
+            return "1 dot = approximately 800 people"
+        } else if (zm < 7 && zm >= 6) {
+            return "1 dot = approximately 1600 people"
+        } else if (zm < 6 && zm >= 5) {
+            return "1 dot = approximately 3200 people"
+        }
+    }
+
+    map.on('load', function () {
+
+        map.addSource('state-dots', {
+            type: 'vector',
+            url: 'mapbox://kwalkertcu.state_dots3'
+        });
+
+        var nav = new mapboxgl.NavigationControl();
+        map.addControl(nav, 'top-right');
+
+        map.addLayer({
+            'id': 'immigrants18',
+            'type': 'circle',
+            'source': 'state-dots',
+            'source-layer': 'state_dots3',
+            'paint': {
+                // make circles larger as the user zooms
+                'circle-radius': {
+                    'base': 2,
+                    'stops': [[5, 1.5], [12, 3]]
+                },
+
+                'circle-color': {
+                    property: 'group',
+                    type: 'categorical',
+                    stops: [
+                        ['mexico', '#e41a1c'],
+                        ['cs_amer_caribbean', '#377eb8'],
+                        ['east_se_asia', '#4daf4a'],
+                        ['sub_saharan_africa', '#984ea3'],
+                        ['europe', '#ff7f00'],
+                        ['oceania', '#ffff33'],
+                        ['canada', '#a65628'],
+                        ['sw_asia_n_africa', '#f781bf'],
+                        ['south_asia', '#00ffff']
+                    ]
+                }
+            }
+        }, 'waterway-label');
+
+        // Interactive legend logic - start here and experiment
+
+        var filter = ["in", "group", "mexico", "cs_amer_caribbean", "east_se_asia",
+            "sub_saharan_africa", "europe", "south_asia",
+            "oceania", "canada", "sw_asia_n_africa"];
+
+        var groups = [{group: "mexico", hex: "#e41a1c"},
+            {group: "cs_amer_caribbean", hex: "#377eb8"},
+            {group: "east_se_asia", hex: "#4daf4a"},
+            {group: "sub_saharan_africa", hex: "#984ea3"},
+            {group: "europe", hex: "#ff7f00"},
+            {group: "oceania", hex: "#ffff33"},
+            {group: "canada", hex: "#a65628"},
+            {group: "south_asia", hex: "#00ffff"},
+            {group: "sw_asia_n_africa", hex: "#f781bf"}];
+
+        document.getElementById('legend10').addEventListener('click', function(e) {
+
+            var group = e.target.id;
+            var layer = 'immigrants18';
+            var group_span = group + '-span';
+
+            // get the corresponding hex value for the level
+            var group_index = groups.map(function(x) {
+                return x.group;
+            }).indexOf(group);
+
+            var hex = groups[group_index].hex;
+
+            var el = document.getElementById(group_span);
+
+            // check if the level is in the target array; if not, then add it
+            if (filter.indexOf(group, 1) === -1) {
+                filter.push(group);
+                map.setFilter(layer, filter);
+                el.style.backgroundColor = hex;
+                el.style.color = "#ffffff";
+                // otherwise, remove it
+            } else {
+                index = filter.indexOf(group);
+                filter.splice(index, 1);
+                map.setFilter(layer, filter);
+                el.style.backgroundColor = '#c5c8cc';
+                el.style.color = '#c5c8cc';
+            }
+
+        });
+
+        // Preserve filter on zoom
+
+        layerids.map(function(x) {
+
+            map.on('zoom', function() {
+
+                map.setFilter(x.id, filter);
+
+            });
+
+        });
+
+
+    });
+
+
+
+
+
+</script>
+
+</body>
+</html>

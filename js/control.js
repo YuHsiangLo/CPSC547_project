@@ -1,62 +1,25 @@
-
 // Initialize chart
-//let choroplethMap = new ChoroplethMap({ parentElement: '#map' });
+let radialDendrogram = new RadialDendrogram({ parentElement: '#radial' });
+//let collapsibleTree = new CollapsibleTree({ parentElement: '#radial' });
+
 
 // Load data
-/*Promise.all([
-    d3.json('data/canada_provinces.topo.json'),
-    d3.csv('data/canada_historical_population.csv')
-]).then(files => {
-    let population = files[1];
+d3.json('data/lang_fam.json').then(data => {
+    radialDendrogram.data = data;
+    radialDendrogram.update();
 
-    // Change all values to numbers
-    population.forEach(d => {
-        const columns = Object.keys(d);
-        for (const col of columns) {
-            d[col] = +d[col];
-        }
-    });
-
-    choroplethMap.canada_geo = files[0];
-    choroplethMap.population = population;
-    choroplethMap.selectedYear = 1991;
-    choroplethMap.update();
+    //collapsibleTree.data = data;
+    //collapsibleTree.update();
 });
 
-$('#year-slider').on('input', function() {
+let choropleth;
 
-    const year = $(this).val();
-    $('#year-selection').text(year);
-
-    choroplethMap.selectedYear = +year;
-    choroplethMap.update();
-});*/
-
-//reference 1: https://bl.ocks.org/officeofjane/47d2b0bfeecfcb41d2212d06d095c763
-//reference 2: https://www.w3schools.com/jsref/met_win_setinterval.asp
-/*let Timer;
-$('#play-button').on('click', function() {
-    clearInterval(Timer);
-
-    if ($('#play-button').text() === 'Play') {
-        Timer = setInterval(function() {
-            const slider = $('#year-slider');
-            let year = +slider.prop('value') + 1;
-            if (year > +slider.prop('max')) {
-                year = +slider.prop('min');
-            }
-            slider.prop('value', year);
-            $('#year-selection').text(year);
-
-            choroplethMap.selectedYear = year;
-            choroplethMap.update();
-        }, 250);
-
-        $('#play-button').text('Pause');
-        $('#play-button').css('background-color', '#d05667');
-
-    } else if ($('#play-button').text() === 'Pause') {
-        $('#play-button').text('Play');
-        $('#play-button').css('background-color', '#a0bc3d');
-    }
-});*/
+// Load data
+Promise.all([
+    d3.json('data/Vancouver_LDI.geojson'),
+    d3.json('data/Vancouver_LDI_agg.geojson'),
+    d3.json('data/lang_fam.json')
+]).then(files => {
+    choropleth = new Choropleth({ parentElement: '#map', width: window.outerWidth, height: window.outerHeight - 56}, files[0], files[1], files[2]);
+    choropleth.update();
+});
