@@ -1,9 +1,32 @@
-
 // Initialize chart
-let radialDendrogram = new RadialDendrogram({ parentElement: '#radial' });
+//let radialDendrogram = new RadialDendrogram({ parentElement: '#radial' });
+//let collapsibleTree = new CollapsibleTree({ parentElement: '#radial' });
+
 
 // Load data
-d3.json('data/lang_fam.json').then(data => {
-    radialDendrogram.data = data;
-    radialDendrogram.update();
+//d3.json('data/lang_fam.json').then(data => {
+//    radialDendrogram.data = data;
+//    radialDendrogram.update();
+
+    //collapsibleTree.data = data;
+    //collapsibleTree.update();
+//});
+
+let combined;
+
+// Load data
+Promise.all([
+    d3.json('data/Vancouver_LDI.geojson'),
+    d3.json('data/Vancouver_LDI_agg.geojson'),
+    d3.json('data/lang_fam.json')
+]).then(files => {
+    combined = new MapTreeCombined(
+        {
+            mapParentElement: '#choropleth',
+            treeParentElement: '#tree',
+
+            mapWidth: window.outerWidth,
+            mapHeight: window.outerHeight - 56},
+        files[0], files[1], files[2]);
+    combined.update();
 });

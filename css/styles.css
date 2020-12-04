@@ -1,0 +1,18 @@
+#mydiv {
+    position: absolute;
+    cursor: move;
+    opacity: 1;
+}
+
+.neighbor {
+    fill-opacity: 0;
+    stroke: black;
+    stroke-width: 1;
+}
+
+.Municipalities {
+    fill: none;
+    stroke: #333;
+    stroke-width: 0.5;
+    
+}
