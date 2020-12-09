@@ -1,17 +1,3 @@
-// Initialize chart
-//let radialDendrogram = new RadialDendrogram({ parentElement: '#radial' });
-//let collapsibleTree = new CollapsibleTree({ parentElement: '#radial' });
-
-
-// Load data
-//d3.json('data/lang_fam.json').then(data => {
-//    radialDendrogram.data = data;
-//    radialDendrogram.update();
-
-    //collapsibleTree.data = data;
-    //collapsibleTree.update();
-//});
-
 let combined;
 
 // Load data

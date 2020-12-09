@@ -4,15 +4,12 @@
     opacity: 1;
 }
 
-.neighbor {
+.neighborhood {
     fill-opacity: 0;
     stroke: black;
     stroke-width: 1;
 }
 
-.Municipalities {
-    fill: none;
-    stroke: #333;
-    stroke-width: 0.5;
-    
+.tick text {
+    font-size: 5pt;
 }

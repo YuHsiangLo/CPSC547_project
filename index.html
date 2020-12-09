@@ -1,16 +1,16 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>deck.gl example</title>
+<head>
+  <meta charset="UTF-8">
+  <title>deck.gl example</title>
 
-    <!-- Required meta tags -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Required meta tags -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/styles.css">
-    <style>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
     #container {
       position: fixed;
       top: 0;
@@ -25,107 +25,131 @@
       width: 100%;
       height: 100%;
     }
-    </style>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.css' rel='stylesheet'>
-  </head>
-  <body>
-    <div id="container">
-      <div id="map"></div>
-      <canvas id="deck-canvas"></canvas>
+  </style>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.css' rel='stylesheet'>
+
+</head>
+<body>
+<div id="container" style="visibility: hidden">
+  <div id="map"></div>
+  <canvas id="deck-canvas"></canvas>
+</div>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Vancouver Linguistic Diversity</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="index.html">Map <span class="sr-only">(current)</span></a>
+      </li>
+      <!--<li class="nav-item">-->
+      <!--<a class="nav-link" href="map.html">Data</a>-->
+      <!--</li>-->
+    </ul>
+  </div>
+</nav>
+<div class="w-100" style="height: calc(100vh - 56px);">
+  <div class="btn-group btn-group-toggle" data-toggle="buttons" style="position: absolute; right: 0">
+    <label class="btn btn-secondary active">
+      <input type="radio" name="options" id="option1" autocomplete="off" checked> Choropleth
+    </label>
+    <label class="btn btn-secondary">
+      <input type="radio" name="options" id="option2" autocomplete="off"> Dot density
+    </label>
+  </div>
+  <svg id="choropleth"></svg>
+  <!-- https://www.w3schools.com/howto/howto_js_draggable.asp -->
+  <!-- https://getbootstrap.com/docs/4.4/utilities/overflow/ -->
+  <div id="mydiv" class="card" style="width: 40rem; max-height: 500px; top: 100px; right: 50px">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Language Families
+        </button>
+      </h5>
     </div>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">Vancouver Linguistic Diversity</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="index.html">Map <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="map.html">Data</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    <div class="w-100" style="height: calc(100vh - 56px)">
-      <svg id="choropleth"></svg>
-      <!-- https://www.w3schools.com/howto/howto_js_draggable.asp -->
-      <!-- https://getbootstrap.com/docs/4.4/utilities/overflow/ -->
-      <div id="mydiv" class="card overflow-auto" style="width: 40rem; height: 500px; top: 100px; right: 50px">
-        <div class="card-header" id="headingOne">
-          <h5 class="mb-0">
-            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              Language family tree
-            </button>
-          </h5>
-        </div>
-        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#mydiv">
-          <div class="card-body">
-            <h5 class="card-title"></h5>
-            <p class="card-text">
-            </p>
-            <svg id="tree">
-            </svg>
-          </div>
-        </div>
+    <div id="collapseOne" class="collapse show overflow-auto" aria-labelledby="headingOne" data-parent="#mydiv" style="white-space: nowrap">
+      <div class="card-body">
+        <!--            <h5 class="card-title"></h5>-->
+        <p class="card-text ">
+          Scroll down and right to see more of the tree.
+        </p>
+        <svg id="tree"></svg>
+        <p class="card-text ">
+        <div>n.i.e. = not included elsewhere</div>
+        <div>n.o.s. = not otherwise specified</div>
+        </p>
       </div>
     </div>
-    <script src='./app.js'></script>
-    <script src="https://d3js.org/d3.v6.min.js"></script>
-    <script src="js/MapTreeCombined.js"></script>
-    <script src="js/control.js"></script>
+  </div>
+</div>
+<script src='./app.js'></script>
+<script src="https://d3js.org/d3.v6.min.js"></script>
+<script src="js/MapTreeCombined.js"></script>
+<script src="js/control.js"></script>
 
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script>
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script>
 
-      // Make the DIV element draggable:
-      dragElement(document.getElementById("mydiv"));
+  // Make the DIV element draggable:
+  dragElement(document.getElementById("mydiv"));
 
-      function dragElement(elmnt) {
-        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-        if (document.getElementById(elmnt.id + "header")) {
-          // if present, the header is where you move the DIV from:
-          document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-        } else {
-          // otherwise, move the DIV from anywhere inside the DIV:
-          elmnt.onmousedown = dragMouseDown;
-        }
+  function dragElement(elmnt) {
+    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    if (document.getElementById(elmnt.id + "header")) {
+      // if present, the header is where you move the DIV from:
+      document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+    } else {
+      // otherwise, move the DIV from anywhere inside the DIV:
+      elmnt.onmousedown = dragMouseDown;
+    }
 
-        function dragMouseDown(e) {
-          e = e || window.event;
-          e.preventDefault();
-          // get the mouse cursor position at startup:
-          pos3 = e.clientX;
-          pos4 = e.clientY;
-          document.onmouseup = closeDragElement;
-          // call a function whenever the cursor moves:
-          document.onmousemove = elementDrag;
-        }
+    function dragMouseDown(e) {
+      e = e || window.event;
+      e.preventDefault();
+      // get the mouse cursor position at startup:
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      document.onmouseup = closeDragElement;
+      // call a function whenever the cursor moves:
+      document.onmousemove = elementDrag;
+    }
 
-        function elementDrag(e) {
-          e = e || window.event;
-          e.preventDefault();
-          // calculate the new cursor position:
-          pos1 = pos3 - e.clientX;
-          pos2 = pos4 - e.clientY;
-          pos3 = e.clientX;
-          pos4 = e.clientY;
-          // set the element's new position:
-          elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-          elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-        }
+    function elementDrag(e) {
+      e = e || window.event;
+      e.preventDefault();
+      // calculate the new cursor position:
+      pos1 = pos3 - e.clientX;
+      pos2 = pos4 - e.clientY;
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      // set the element's new position:
+      elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+      elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+    }
 
-        function closeDragElement() {
-          // stop moving when mouse button is released:
-          document.onmouseup = null;
-          document.onmousemove = null;
-        }
-      }
-    </script>
-  </body>
+    function closeDragElement() {
+      // stop moving when mouse button is released:
+      document.onmouseup = null;
+      document.onmousemove = null;
+    }
+  }
+
+  $('#option1').on('change', function () {
+    $('#container').css('visibility', 'hidden');
+    $('#choropleth').attr('visibility', 'visible');
+
+  });
+
+  $('#option2').on('change', function () {
+    $('#container').css('visibility', 'visible');
+    $('#choropleth').attr('visibility', 'hidden');
+  });
+</script>
+</body>
 </html>

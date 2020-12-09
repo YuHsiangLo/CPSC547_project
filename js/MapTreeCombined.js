@@ -13,23 +13,50 @@ class MapTreeCombined {
             mapMargin: {top:10, bottom: 10, right: 10, left: 10},
             treeMargin: {top:10, bottom: 10, right: 10, left: 125},
 
-            mapLegendWidth: 250,
-            mapLegendHeight: 26,
+            mapLegendWidth: 5,
+            mapLegendHeight: 50,
         };
 
         this.config.dx = 25;
-        this.config.dy = this.config.treeWidth / 6;
+        this.config.dy = this.config.treeWidth / 7.5;
 
         this.DAData = DAData;
         this.cityData = cityData;
 
         this.root = d3.hierarchy(treeData);
+        this.rootCopy = this.root.copy();
         this.root.x0 = this.config.dy / 2;
         this.root.y0 = 0;
         this.root.descendants().forEach((d, i) => {
             d.id = i;
+        });
+
+        this.root.each(node => {
+            if (!node.children) {
+                node.numSpeakers = d3.sum(this.cityData.features, d => d.properties[node.data.name]);
+            }
+        });
+
+        this.root.eachAfter(node => {
+            if (node.children) {
+                node.numSpeakers = d3.sum(node.children, d => d.numSpeakers);
+            }
+        });
+
+        this.root.each(d => {
+            if (d.children) {
+                const kept_children = [];
+                for (let child of d.children) {
+                    if (child.numSpeakers !== 0) {
+                        kept_children.push(child);
+                    }
+                }
+                d.children = kept_children;
+            }
+        });
+
+        this.root.descendants().forEach((d, i) => {
             d._children = d.children;
-            //if (d.depth && d.depth > 1) d.children = null;
         });
 
         this.initVis();
@@ -43,32 +70,28 @@ class MapTreeCombined {
             .attr('height', vis.config.mapHeight)
             .on('click', reset);
 
-        vis.mapChart = vis.mapSVG.append('g')
-        //.attr('transform', `translate(-500, -500) scale(2)`);
-        //.attr('transform', `translate(${
-        //    vis.config.margin.left
-        //}, ${
-        //    vis.config.margin.top
-        //})`);
+        vis.mapChart = vis.mapSVG.append('g');
 
-        vis.treeChart = d3.select(vis.config.treeParentElement) //vis.svg.append('g')
-            //.attr('width', vis.config.width)
-            //.attr('height', vis.config.height)
-            .attr("viewBox", [-vis.config.treeMargin.left, -vis.config.treeMargin.top, vis.config.treeWidth, vis.config.dx])
-            //.style("font", "10px sans-serif")
-            .style("user-select", "none");
-        //.attr('transform', `translate(${vis.config.left}, ${vis.config.top})`);
+        vis.treeChart = d3.select(vis.config.treeParentElement)
+            .attr('width', vis.config.treeWidth)
+            .attr('height', vis.config.treeHeight)
+            .attr('viewBox', [-vis.config.treeMargin.left, -vis.config.treeMargin.top, vis.config.treeWidth, vis.config.dx]);
 
-        vis.tree = d3.tree().nodeSize([vis.config.dx, vis.config.dy])
-        vis.diagonal = d3.linkHorizontal().x(d => d.y).y(d => d.x)
+        vis.tree = d3.tree().nodeSize([vis.config.dx, vis.config.dy]);
+        vis.diagonal = d3.linkHorizontal().x(d => d.y).y(d => d.x);
 
         //accessor
-        vis.ldiAccessor = d => +d.properties['LDI']
+        vis.ldiAccessor = d => +d.properties['LDI'];
 
         vis.projection = d3.geoMercator()
             .fitSize([vis.config.mapWidth, vis.config.mapHeight], vis.DAData);
 
         vis.pathGenerator = d3.geoPath(vis.projection);
+
+        //preprocess data
+        vis.cityData.features.forEach(d => {
+            d.properties.centroid = vis.projection(d3.geoCentroid(d.geometry));
+        });
 
         // scale
         vis.colorScale = d3.scaleSequential()
@@ -83,37 +106,94 @@ class MapTreeCombined {
 
         vis.zoom = d3.zoom()
             .scaleExtent([1, 8])
-            .on('zoom', zoomed)
+            .on('zoom', zoomed);
 
         function reset() {
             vis.mapSVG.transition().duration(750)
                 .call(
                     vis.zoom.transform,
-                    d3.zoomIdentity.translate(-660, -450).scale(2)
+                    d3.zoomIdentity.translate(-550, -450).scale(2)
                 );
+
+            vis.root = vis.rootCopy.copy();
+            vis.root.x0 = vis.config.dy / 2;
+            vis.root.y0 = 0;
+            vis.root.descendants().forEach((d, i) => {
+                d.id = i;
+            });
+
+            vis.root.each(node => {
+                if (!node.children) {
+                    node.numSpeakers = d3.sum(vis.cityData.features, d => d.properties[node.data.name]);
+                }
+            });
+
+            vis.root.eachAfter(node => {
+                if (node.children) {
+                    node.numSpeakers = d3.sum(node.children, d => d.numSpeakers);
+                }
+            });
+
+            vis.root.each(d => {
+                if (d.children) {
+                    const kept_children = [];
+                    for (let child of d.children) {
+                        if (child.numSpeakers !== 0) {
+                            kept_children.push(child);
+                        }
+                    }
+                    d.children = kept_children;
+                }
+            });
+
+            vis.root.descendants().forEach(d => {
+                d._children = d.children;
+            });
+
+            vis.update_tree(vis.root);
         }
 
         vis.clicked = function(event, d) {
+            vis.root = vis.rootCopy.copy();
+
+            vis.root.x0 = vis.config.dy / 2;
+            vis.root.y0 = 0;
+
+            vis.root.descendants().forEach((d, i) => {
+                d.id = i;
+            });
+
             vis.root.each(node => {
                 if (!node.children) {
                     node.numSpeakers = +d.properties[node.data.name];
                 }
-            })
+            });
+
             vis.root.eachAfter(node => {
                 if (node.children) {
-                    let num = 0;
-                    node.children.forEach(child => {
-                        num += child.numSpeakers;
-                    })
-
-                    node.numSpeakers = num;
+                    node.numSpeakers = d3.sum(node.children, d => d.numSpeakers);
                 }
-            })
+            });
+
+            vis.root.each(d => {
+                if (d.children) {
+                    const kept_children = [];
+                    for (let child of d.children) {
+                        if (child.numSpeakers !== 0) {
+                            kept_children.push(child);
+                        }
+                    }
+                    d.children = kept_children;
+                }
+            });
+
+            vis.root.descendants().forEach(d => {
+                d._children = d.children;
+                if (d.depth && d.depth >= 3) d.children = null;
+            });
 
             const [[x0, y0], [x1, y1]] = vis.pathGenerator.bounds(d);
             event.stopPropagation();
-            //states.transition().style("fill", null);
-            //d3.select(this).transition().style("fill", "red");
             vis.mapSVG.transition().duration(750).call(
                 vis.zoom.transform,
                 d3.zoomIdentity
@@ -123,7 +203,7 @@ class MapTreeCombined {
                 d3.pointer(event, vis.mapSVG.node())
             );
 
-            vis.update(vis.root);
+            vis.update_tree(vis.root);
         }
 
     }
@@ -143,108 +223,102 @@ class MapTreeCombined {
             .join('path').attr('class', 'da')
             .attr('d', vis.pathGenerator)
             .attr('fill', d => vis.colorScale(vis.ldiAccessor(d)))
-            //.attr("stroke", "white")
-            .attr("stroke-linejoin", "round")
-            .on('click', vis.clicked)
-
-        vis.cities = vis.mapChart.append('g')
-            .attr('cursor', 'pointer')
-            .selectAll('.neighbor')
-            .data(vis.cityData.features)
-            .join('path').attr('class', 'neighbor')
-            .attr('d', vis.pathGenerator)
-            .attr("stroke-linejoin", "round")
+            .attr('stroke-linejoin', 'round')
             .on('click', vis.clicked);
 
-        const legendGroup = vis.mapChart.append("g")
-            .attr("transform", `translate(${
-                vis.config.mapWidth - vis.config.mapLegendWidth - 500
-            },${
-                vis.config.mapHeight - 200
-            })`)
+        const cityGroup = vis.mapChart.selectAll('.neighborhood').data(vis.cityData.features);
+        const cityGroupEnter = cityGroup.enter().append('g')
+            .attr('cursor', 'pointer')
+            .on('click', vis.clicked);
 
-        const defs = vis.mapSVG.append("defs")
+        const path = cityGroupEnter.append('path').merge(cityGroup.select('path'))
+            .attr('class', 'neighborhood')
+            .attr('d', vis.pathGenerator)
+            .attr("stroke-linejoin", "round");
 
-        const numberOfGradientStops = 10
-        const stops = d3.range(numberOfGradientStops).map(i => (
-            i / (numberOfGradientStops - 1)
-        ))
-        const legendGradientId = "legend-gradient"
-        const gradient = defs.append("linearGradient")
-            .attr("id", legendGradientId)
-            .selectAll("stop")
+        const cityText = cityGroupEnter.append('text').merge(cityGroup.select('text'))
+            .attr('text-anchor', 'middle')
+            .attr('font-size', '8pt')
+            .attr('font-weight', 'bold')
+            .attr('stroke-linejoin', 'round')
+            .attr('stroke-width', 0.5)
+            .attr('stroke', 'white')
+            .attr('x', d => d.properties.centroid[0])
+            .attr('y', d => d.properties.centroid[1])
+            .text(d => d.properties.REGION);
+
+        const legendGroup = vis.mapChart.append('g')
+            .attr('transform', `translate(290, 490)`);
+
+        // legend for choropleth
+        const defs = vis.mapSVG.append('defs');
+
+        const numberOfGradientStops = 11;
+        const stops = d3.range(numberOfGradientStops).map(i => i / (numberOfGradientStops - 1));
+        const gradient = defs.append('linearGradient')
+            .attr('id', 'legend-gradient')
+            .attr('x1', '0%')
+            .attr('y1', '100%')
+            .attr('x2', '0%')
+            .attr('y2', '0%')
+            .selectAll('stop')
             .data(stops)
-            .enter().append("stop")
-            .attr("stop-color", d => d3.interpolateRainbow(-d))
-            .attr("offset", d => `${d * 100}%`)
+            .enter().append('stop')
+            .attr('stop-color', d => vis.colorScale(d))
+            .attr('offset', d => `${d * 100}%`);
 
-        //const legendGradient = legendGroup.append("rect")
-        //    .attr("height", vis.config.mapLegendHeight)
-        //    .attr("width", vis.config.mapLegendWidth)
-        //    .style("fill", `url(#${legendGradientId})`)
+        const legendGradient = legendGroup.append('rect')
+            .attr('height', vis.config.mapLegendHeight)
+            .attr('width', vis.config.mapLegendWidth)
+            .style('fill', `url(#legend-gradient)`);
 
-        // const tickValues = [
-        //     d3.timeParse("%m/%d/%Y")(`4/1/${colorScaleYear}`),
-        //     d3.timeParse("%m/%d/%Y")(`7/1/${colorScaleYear}`),
-        //     d3.timeParse("%m/%d/%Y")(`10/1/${colorScaleYear}`),
-        // ]
-        // const legendTickScale = d3.scaleLinear()
-        //     .domain(colorScale.domain())
-        //     .range([0, dimensions.legendWidth])
-        //
-        // const legendValues = legendGroup.selectAll(".legend-value")
-        //     .data(tickValues)
-        //     .enter().append("text")
-        //     .attr("class", "legend-value")
-        //     .attr("x", legendTickScale)
-        //     .attr("y", -6)
-        //     .text(d3.timeFormat("%b"))
-        //
-        // const legendValueTicks = legendGroup.selectAll(".legend-tick")
-        //     .data(tickValues)
-        //     .enter().append("line")
-        //     .attr("class", "legend-tick")
-        //     .attr("x1", legendTickScale)
-        //     .attr("x2", legendTickScale)
-        //     .attr("y1", 6)
+        const legendScale = d3.scaleLinear()
+            .domain([1, 0])
+            .range([0, vis.config.mapLegendHeight]);
 
+        const legendAxisGenerator = d3.axisRight()
+            .scale(legendScale)
+            .ticks(5);
 
-        //const zoom = d3.zoom()
-        //    .scaleExtent([1, 8])
-        //    .on('zoom', zoomed)
+        legendGroup.append('g')
+            .call(legendAxisGenerator)
+            .select('.domain').remove();
+
+        legendGroup.append('text')
+            .attr('transform', `translate(0, -5)`)
+            .attr('font-weight', 'bold')
+            .attr('font-size', '5pt')
+            .text('Language Diversity Index');
 
         //https://stackoverflow.com/questions/16178366/d3-js-set-initial-zoom-level
         vis.mapSVG.call(vis.zoom)
-            .call(vis.zoom.transform, d3.zoomIdentity.translate(-660, -450).scale(2));
-
-        //function zoomed({transform}) {
-        //    vis.chart
-        //        .attr('transform', transform)
-        //}
+            .call(vis.zoom.transform, d3.zoomIdentity.translate(-550, -450).scale(2));
 
         // tree
-        const gLink = vis.treeChart.append("g")
-            .attr("fill", "none")
-            .attr("stroke", "#555")
-            .attr("stroke-opacity", 0.4)
-            .attr("stroke-width", 1.5);
+        const gLink = vis.treeChart.append('g')
+            .attr('fill', 'none')
+            .attr('stroke', '#555')
+            .attr('stroke-opacity', 0.4)
+            .attr('stroke-width', 1.5);
 
-        const gNode = vis.treeChart.append("g")
-            .attr("cursor", "pointer")
-            .attr("pointer-events", "all");
+        const gNode = vis.treeChart.append('g')
+            .attr('cursor', 'pointer')
+            .attr('pointer-events', 'all');
 
-        vis.update = function (source) {
+        vis.update_tree = function (source) {
             const duration = d3.event && d3.event.altKey ? 2500 : 250;
-            console.log(vis.root)
             const nodes = vis.root.descendants().reverse();
             const links = vis.root.links();
-            console.log(links)
 
             // Compute the new tree layout.
             vis.tree = d3.tree().nodeSize([vis.config.dx, vis.config.dy])
                 .separation((a, b) => {
                     if (a.numSpeakers && b.numSpeakers) {
-                        return (Math.log(a.numSpeakers) + Math.log(b.numSpeakers)) / 10
+                        if (a.numSpeakers >= 50 || b.numSpeakers >= 50) {
+                            return (Math.log(a.numSpeakers + b.numSpeakers)) / 7.5;
+                        } else {
+                            return 1;
+                        }
                     } else {
                         return 1;
                     }
@@ -262,69 +336,74 @@ class MapTreeCombined {
 
             const transition = vis.treeChart.transition()
                 .duration(duration)
-                .attr("viewBox", [-vis.config.treeMargin.left, left.x - vis.config.treeMargin.top, vis.config.treeWidth, height])
-                .tween("resize", window.ResizeObserver ? null : () => () => vis.treeChart.dispatch("toggle"));
+                .attr('height', height)
+                .attr('viewBox', [-vis.config.treeMargin.left, left.x - vis.config.treeMargin.top, vis.config.treeWidth, height])
+                .tween('resize', window.ResizeObserver ? null : () => () => vis.treeChart.dispatch('toggle'));
 
             // Update the nodes…
-            const node = gNode.selectAll("g")
+            const node = gNode.selectAll('g')
                 .data(nodes, d => d.id);
 
             // Enter any new nodes at the parent's previous position.
-            const nodeEnter = node.enter().append("g")
-                .attr("transform", d => `translate(${source.y0}, ${source.x0})`)
-                .attr("fill-opacity", 0)
-                .attr("stroke-opacity", 0)
-                .on("click", (event, d) => {
+            const nodeEnter = node.enter().append('g')
+                .attr('transform', d => `translate(${source.y0}, ${source.x0})`)
+                .attr('fill-opacity', 0)
+                .attr('stroke-opacity', 0)
+                .on('click', (event, d) => {
                     d.children = d.children ? null : d._children;
-                    vis.update(d);
+                    vis.update_tree(d);
                 });
 
-            nodeEnter.append("circle")
-                .attr("r", d => Math.log(d.numSpeakers/1000))
-                .attr("fill", d => d._children ? "#555" : "#999")
-                .attr("stroke-width", 10);
+            nodeEnter.append('title').merge(node.select('title'))
+                .text(d => 'Number of speakers: ' + d.numSpeakers);
 
-            nodeEnter.append("text")
-                .attr("dy", "0.31em")
-                .attr("x", d => d._children ? -6 : 6)
-                .attr("text-anchor", d => d._children ? "end" : "start")
+            nodeEnter.append('circle').merge(node.select('circle'))
+                .attr('r', d => d.numSpeakers? Math.log(d.numSpeakers) : 1)
+                .attr('fill', d => d._children ? '#555' : '#999')
+                .attr('stroke-width', 10);
+
+            nodeEnter.append('text')
+                .attr('dy', '0.31em')
+                .attr('x', d => d._children ? -6 : 6)
+                .attr('text-anchor', d => d._children ? 'end' : 'start')
                 .text(d => d.data.name)
                 .clone(true).lower()
-                .attr("stroke-linejoin", "round")
-                .attr("stroke-width", 3)
-                .attr("stroke", "white");
+                .attr('stroke-linejoin', 'round')
+                .attr('stroke-width', 3)
+                .attr('stroke', 'white');
 
             // Transition nodes to their new position.
             const nodeUpdate = node.merge(nodeEnter).transition(transition)
-                .attr("transform", d => `translate(${d.y},${d.x})`)
-                .attr("fill-opacity", 1)
-                .attr("stroke-opacity", 1);
+                .attr('transform', d => `translate(${d.y},${d.x})`)
+                .attr('fill-opacity', 1)
+                .attr('stroke-opacity', 1);
 
             // Transition exiting nodes to the parent's new position.
             const nodeExit = node.exit().transition(transition).remove()
-                .attr("transform", d => `translate(${source.y},${source.x})`)
-                .attr("fill-opacity", 0)
-                .attr("stroke-opacity", 0);
+                .attr('transform', d => `translate(${source.y},${source.x})`)
+                .attr('fill-opacity', 0)
+                .attr('stroke-opacity', 0);
 
             // Update the links…
-            const link = gLink.selectAll("path")
+            const link = gLink.selectAll('path')
                 .data(links, d => d.target.id);
 
             // Enter any new links at the parent's previous position.
-            const linkEnter = link.enter().append("path")
-                .attr("stroke-width", d => Math.log(d.target.numSpeakers/1000))
-                .attr("d", d => {
+            const linkEnter = link.enter().append('path')
+                .attr('stroke-width', d => d.target.numSpeakers? Math.log(d.target.numSpeakers) : 1)
+                .attr('d', d => {
                     const o = {x: source.x0, y: source.y0};
                     return vis.diagonal({source: o, target: o});
                 });
 
             // Transition links to their new position.
             link.merge(linkEnter).transition(transition)
-                .attr("d", vis.diagonal);
+                .attr('stroke-width', d => d.target.numSpeakers? Math.log(d.target.numSpeakers) : 1)
+                .attr('d', vis.diagonal);
 
             // Transition exiting nodes to the parent's new position.
             link.exit().transition(transition).remove()
-                .attr("d", d => {
+                .attr('d', d => {
                     const o = {x: source.x, y: source.y};
                     return vis.diagonal({source: o, target: o});
                 });
@@ -336,6 +415,6 @@ class MapTreeCombined {
             });
         }
 
-        vis.update(vis.root);
+        vis.update_tree(vis.root);
     }
 }
