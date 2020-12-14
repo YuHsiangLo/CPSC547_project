@@ -98,6 +98,7 @@ class MapTreeCombined {
             .domain(d3.extent(vis.DAData.features, vis.ldiAccessor))
             .interpolator(d3.interpolateBlues);
 
+        // the part on zoom is based on https://observablehq.com/@d3/zoom-to-bounding-box
         function zoomed({transform}) {
             vis.mapChart
                 .attr('transform', transform)
@@ -250,7 +251,7 @@ class MapTreeCombined {
         const legendGroup = vis.mapChart.append('g')
             .attr('transform', `translate(290, 490)`);
 
-        // legend for choropleth
+        // legend for choropleth, based on https://bl.ocks.org/HarryStevens/6eb89487fc99ad016723b901cbd57fde
         const defs = vis.mapSVG.append('defs');
 
         const numberOfGradientStops = 11;
@@ -290,11 +291,11 @@ class MapTreeCombined {
             .attr('font-size', '5pt')
             .text('Language Diversity Index');
 
-        //https://stackoverflow.com/questions/16178366/d3-js-set-initial-zoom-level
+        // based on https://stackoverflow.com/questions/16178366/d3-js-set-initial-zoom-level
         vis.mapSVG.call(vis.zoom)
             .call(vis.zoom.transform, d3.zoomIdentity.translate(-550, -450).scale(2));
 
-        // tree
+        // tree based on https://observablehq.com/@d3/collapsible-tree
         const gLink = vis.treeChart.append('g')
             .attr('fill', 'none')
             .attr('stroke', '#555')

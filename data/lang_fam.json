@@ -4,12 +4,8 @@
     {
       "name": "Official",
       "children": [
-        {
-          "name": "English"
-        },
-        {
-          "name": "French"
-        }
+        {"name": "English"},
+        {"name": "French"}
       ]
     },
     {
@@ -21,9 +17,7 @@
             {
               "name": "Algonquian",
               "children": [
-                {
-                  "name": "Blackfoot"
-                },
+                {"name": "Blackfoot"},
                 {
                   "name": "Cree-Montagnais",
                   "children": [
@@ -99,9 +93,7 @@
                     }
                   ]
                 },
-                {
-                  "name": "Athabaskan, n.i.e."
-                }
+                {"name": "Athabaskan, n.i.e."}
               ]
             },
             {"name": "Haida"},
@@ -122,12 +114,8 @@
                 {"name": "Iroquoian, n.i.e."}
               ]
             },
-            {
-              "name": "Kutenai"
-            },
-            {
-              "name": "Michif"
-            },
+            {"name": "Kutenai"},
+            {"name": "Michif"},
             {
               "name": "Salish",
               "children": [
@@ -169,9 +157,7 @@
                 {"name": "Wakashan, n.i.e."}
               ]
             },
-            {
-              "name": "Aboriginal, n.o.s."
-            }
+            {"name": "Aboriginal, n.o.s."}
           ]
         },
         {
