@@ -1,26 +1,27 @@
-<div align="center">
-   <img width="150" heigth="150" src="https://webpack.js.org/assets/icon-square-big.svg" />
-</div>
+## Visualizing Linguistic Diversity in Vancouver
 
-## Example: Use deck.gl with Mapbox
+CPSC 547 Information Visualization Final Project
 
-Uses [Webpack](https://github.com/webpack/webpack) to bundle files and serves it
-with [webpack-dev-server](https://webpack.js.org/guides/development/#webpack-dev-server).
+Authors: Roger Yu-Hsiang Lo, Namratha Rao, and Anika Sayara
 
-## Usage
+### Content
+
+This repository contains implementation for the choropleth map and the collapsible tree.
+
+- Entry point: `index.html`
+- Data for the choropleth map: `data/Vancouver_LDI.geojson` and `data/Vancouver_LDI_agg.geojson`
+- Implementation code: `js/MapTreeCombined.js`
+
+### Usage
 
 To install dependencies:
 
 ```bash
 npm install
-# or
-yarn
 ```
 
-Commands:
-* `npm start` is the development target, to serve the app and hot reload.
-* `npm run build` is the production target, to create the final bundle and write to disk.
+To run the project:
 
-### Basemap
-
-The basemap in this example is provided by [CARTO free basemap service](https://carto.com/basemaps). To use an alternative base map solution, visit [this guide](https://deck.gl/docs/get-started/using-with-map#using-other-basemap-services)
+```bash
+npm start
+```
